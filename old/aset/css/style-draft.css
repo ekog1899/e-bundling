@@ -1,0 +1,142 @@
+.draft{
+	background:#fff;
+}
+.draft .tab1{
+	width:100px;
+	float:left;
+	clear:right;
+}
+.draft .editable{
+	border-bottom:1px solid red;
+	margin:1px;
+}
+.draft #kepada{width:300px;clear:both;margin-bottom:10px}
+.draft #tglsurat{float:right}
+p{
+	margin-left:0px;
+}
+.fLeft{float:left}
+
+.fRight{float:right}
+
+.draft .ttd{
+	margin-left:60%;
+}
+
+::selection {
+    background: #bee828;
+}
+.draft #tembusan{
+	margin-left:15px;
+}
+
+.draft .btnArea{
+    margin:50px 15px;
+    background:#C4DBE6;
+    width:auto;
+    padding:5px;
+}
+
+.pageF4 #editorArea{
+    background:url(../img/bg_konsep_F4.png);
+}
+
+.pageA4 #editorArea{
+    background:url(../img/bg_konsep_A4.png);
+}
+
+#editorArea table.hide-border{
+    background:none;
+    border:0px;
+    margin-bottom:1em;
+}
+
+#editorArea {
+    font-family:"Times New Roman";
+    font-size:16px;
+}
+
+#editorArea .badge{
+    font-size:14px;
+}
+
+
+@media print{
+            .visible-print  { display: inherit !important; }
+			.hidden-print { display: none !important; }
+
+			body{
+				font-size:20px;
+				width:100%;
+			}
+			.container {
+				max-width:100%;
+			}
+			#editorArea table {
+			  margin-bottom:1em;
+            }
+			.row{
+				width:100%;
+			}
+			table, th, td {
+			  border: 0px;
+
+			}
+			.col-md-6 {
+				width: 47%;
+				float:left;
+
+		   }
+
+
+		   .mr-15{
+			   margin-right:15px;
+		   }
+		   .mr-30{
+			   margin-right:30px;
+		   }
+		   .col-md-3 {
+				width: 28%;
+
+		   }
+
+           .draft #kepada{width:400px;clear:both}
+
+		   .pageA4 {
+				width: 210mm;
+				min-height: 297mm;
+				padding: 0mm 16mm;
+				margin: 8mm auto;
+				margin-top:12mm;
+                margin-bottom:30mm;
+				}
+
+
+            .pageF4 {
+				width: 210mm;
+                min-height: 13in;
+				padding: 0mm 16mm;
+				margin: 8mm auto;
+				margin-top:12mm;
+                margin-bottom:30mm;
+				}
+
+            .draft .editable{
+                border:none;
+            }
+
+            #editorArea {
+                font-family:"Times New Roman";
+                font-size:20px;
+            }
+
+            #perihal p{margin-top:0px;padding-top:0px}
+            .pageF4 #editorArea,
+            .pageA4 #editorArea{
+                background:none;
+            }
+
+
+    .draft .editable{border:0px;margin:0px}
+		}
+

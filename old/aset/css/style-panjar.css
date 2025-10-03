@@ -1,0 +1,57 @@
+
+.container{
+	max-width:80%;
+}
+
+.navbar-inverse {
+    background-color: #3c9c06;
+}
+table{
+	  background:#fbfbfb;
+}
+body { font-size:12px; }
+body table td{ font-size:14px; }
+
+
+@media print{
+            .visible-print  { display: inherit !important; }
+			.hidden-print { display: none !important; }
+
+			body{
+				font-size:10px;
+				width:100%;
+			}
+			.container {
+				max-width:100%;
+			}
+			table {
+			  border-collapse: collapse;
+
+			}
+			.row{
+				width:100%;
+			}
+			table, th, td {
+			  border: 1px solid black;
+
+			}
+			.col-md-6 {
+				width: 47%;
+				float:left;
+
+		   }
+
+
+		   .mr-15{
+			   margin-right:15px;
+		   }
+		   .mr-30{
+			   margin-right:30px;
+		   }
+		   .col-md-3 {
+				width: 28%;
+
+		   }
+
+
+		}

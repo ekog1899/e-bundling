@@ -1,0 +1,50 @@
+
+<table class="table table-bordered table-hover">
+	<thead>
+		<tr>
+			<th width="2%">Nomor</th>
+			<th>Nomor Perkara</th>
+			
+			<th width="10%">Tgl Putusan</th>
+			<th width="20%">Pemohon Banding</th>
+			<th width="10%">Tgl Permohonan Banding</th>
+			<th width="10%">Nomor Perkara Banding</th>
+			<th width="10%">Status Perkara Banding</th>
+			<th width="10%">Aksi</th>
+		</tr>
+	</thead>
+	
+	<tbody>
+		<?php
+			$no = 0;
+			if (empty($banding_blm_kirim)) {
+				echo "<tr><td colspan='5'  style='text-align: center; font-weight: bold'>--Data tidak ditemukan--</td></tr>";
+				} else {
+				foreach ($banding_blm_kirim as $b) {
+					$no++;
+					$perkara_id_enc = str_replace('/','__',$this->encryption->encrypt($b['perkara_id']));
+					
+				?>
+				<td><?php echo $no;?></td>
+				<td><?php echo $b['nomor_perkara_pa'];?>
+					
+				</td>
+				<td><?php echo $b['tgl_putusan_pa'];?></td>
+				<td><?php echo $b['pemohon_banding'];?></td>
+				<td><?php echo $b['permohonan_banding'];?></td>
+				<td><?php echo $b['nomor_perkara_banding'];?></td>
+				<td><?php echo $b['status_perkara_banding'];?></td>
+				<td><a class="btn btn-success noprint" href="<?php echo base_url('edoc/upload/'.$perkara_id_enc);?>">edoc</a> </td>
+				<tr>
+				</tr>
+				<?php
+				}
+			}
+		?>
+	</tbody>
+	
+</table>
+
+
+
+

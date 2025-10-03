@@ -1,0 +1,111 @@
+<?php if ( ! defined('BASEPATH')) exit('No direct script access allowed');
+
+class M_akses extends CI_Model {
+
+    public $database = '';
+    public $kodepa = '';
+
+    function __construct()
+    {
+        parent::__construct();
+        $this->config->load('sms_config',TRUE);
+        $this->database=$this->config->item('db_dakung_banding');
+       
+    }
+    
+    function chek_userpass()
+    {
+       // 1. login SIPP
+	   
+	   $kweri_password=$this->db->query("select password,username from $this->database.sipp_user where username='".$this->input->post('username')."'")->row();
+       if (!empty($kweri_password->password)) {
+
+           $password=$kweri_password->password;
+           $username=$kweri_password->username;
+
+       } else {
+
+           $password='';
+           $username='';
+       }
+
+        $pass = $this->getPassword();
+        if ($pass != false AND !empty($password)) {
+            if ($pass === $password) {
+                $kweri_user=$this->db->query("
+                                               select satkersing,username,nama_gelar,nip from  $this->database.sipp_user a
+                                               where a.username='$username'
+                                            
+                                             ")->row();
+
+              if ($kweri_user->satkersing<> '' ) {
+
+                    $iduser=0;
+
+                } else {
+
+                    $this->session->set_userdata('logine','oraoke');
+                    $this->session->set_userdata('hasil','gadjah');
+                    return 'gajah';
+                }
+
+                $data_login=array(
+                                'satkersing'=>$kweri_user->satkersing,
+								'satker'=>$kweri_user->satkersing,
+                                'nama'=>$kweri_user->nama_gelar,                        
+                                'login_time' => date('Y-m-d H:i:s')
+                              );
+
+                $this->session->set_userdata($data_login);
+                return 'wedhus';
+            } else {
+                $this->session->set_userdata('logine','oraoke');
+                $this->session->set_userdata('hasil','gadjah');
+                return 'gajah';
+            }
+        } else {
+            $this->session->set_userdata('logine','oraoke');
+            $this->session->set_userdata('hasil','gadjah');
+            return 'gajah';
+        }
+    }
+
+
+    function arr2md5($arrinput){
+        $hasil='';
+        foreach($arrinput as $val){
+            if($hasil==''){
+                $hasil=md5($val);
+            }
+            else {
+                $code=md5($val);
+                for($hit=0;$hit<min(array(strlen($code),strlen($hasil)));$hit++){
+                    $hasil[$hit]=chr(ord($hasil[$hit]) ^ ord($code[$hit]));
+                }
+            }
+        }
+        return(md5($hasil));
+    }
+
+
+    function getPassword(){
+        $kweri=$this->db->query("select code_activation from $this->database.sipp_user where username='".$this->input->post('username',TRUE)."'")->row();
+        if (!empty($kweri->code_activation)) {
+            $pass = $this->arr2md5(array($kweri->code_activation, $this->input->post('password',TRUE)));
+            return $pass;
+
+        }else{
+            return false;
+        }
+    }
+	
+	function is_login(){
+		#echo $this->session->userdata('satkersing');exit;
+		if ($this->session->userdata('nama') <> '' )
+		return true;
+		else return false;
+	}
+
+    
+
+}

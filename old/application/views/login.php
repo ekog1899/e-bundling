@@ -1,0 +1,84 @@
+<html>
+<head>
+	<title>Login</title>
+	<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+	<link rel="stylesheet" type="text/css" href="<?php echo base_url('aset/css/bootstrap.css');?>">
+    <link rel="stylesheet" type="text/css" href="<?php echo base_url('aset/css/login.css');?>">
+    <style>
+
+    </style>
+</head>
+<body>
+<!-- <div class="container-login">
+    <div class="row">
+        <div class="login-wrapper">
+             <?php if(isset($error)) { echo $error; }; ?>
+            <div class="account-wall">
+				<img src="<?php echo base_url('aset/img/logo_smartphone_login.png');?>">
+                <form class="form-signin" method="POST" action="<?php echo base_url() ?>index.php/login">
+                <div class="form-group">
+                    <input type="text" class="form-control" name="username" placeholder="Masukkan Username Anda" autofocus>
+                    <?php echo form_error('username'); ?>
+                </div>
+                <div class="form-group">
+                    <input type="password" name="password" class="form-control" placeholder="Masukkan Password Anda">
+                    <?php echo form_error('password'); ?>
+                </div>
+
+                    <?php echo $this->session->flashdata('k'); ?>
+
+                <button class="btn btn-lg btn-primary btn-block" name="btn-login" id="btn-login" type="submit">
+                    Masuk</button>
+
+
+                <span class="clearfix"></span>
+                </form>
+            </div>
+
+            <div id="error" style="margin-top: 10px"></div>
+        </div>
+    </div>
+</div>
+-->
+
+
+<div class="limiter">
+		<div class="container-login100" style="background-image: url('images/bg-01.jpg');">
+			<div class="wrap-login100">
+				<span>Silahkan login menggunakan user SIPP panitera</span>
+				<form class="login100-form validate-form"  method="POST" action="<?php echo base_url() ?>/login">
+					<!-- <img src="<?php echo base_url('aset/img/logo_smartphone_login.png');?>"> -->
+
+					<br /><br />
+					<div class="wrap-input100 validate-input" >
+						<input type="text" class="form-control" name="username" placeholder="Masukkan Username Anda" autofocus>
+						<?php echo form_error('username'); ?>
+						<span class="focus-input100" data-placeholder="&#xf207;"></span>
+						   					</div>
+
+					<div class="wrap-input100 validate-input" data-validate="Enter password">
+						 <input type="password" name="password" class="form-control" placeholder="Masukkan Password Anda">
+                    <?php echo form_error('password'); ?>
+						 					</div>
+	
+					 					
+
+					<div class="container-login100-form-btn">
+						<button class="login100-form-btn" name="btn-login" id="btn-login" type="submit">
+							Login
+						</button>
+					</div>
+
+					
+				</form>
+				<span style="color:white">Satgas IT PTA MEDAN Tahun 2022</span>
+			</div>
+			
+		</div>
+	</div>
+	
+<script type="text/javascript" src="https://code.jquery.com/jquery-3.2.1.min.js"></script>
+<script type="text/javascript" src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/jquery-validate/1.17.0/jquery.validate.min.js"></script>
+</body>
+</html>

@@ -1,0 +1,134 @@
+<form>
+<?php// print_r($banding_detil[0]); ?>
+
+<?php // print_r($ref_jenis_edoc_a); ?>
+<table class="table_form" style="font-size:14px;width:100%;" border="0">
+		<colgroup><col width="250">
+		<col>
+		</colgroup><tbody>
+			<tr>
+				<td style="background-color:#8dc79e;padding:5px;color:white" colspan="2"><strong>Data Perkara Tingkat Pertama (SIPP)</strong></td>
+			</tr>
+			<tr><td class="first-colum">Nomor Perkara</td><td><?php echo $perkara_detil[0]['nomor_perkara'];?> (<?php echo $perkara_detil[0]['jenis_perkara_text'];?>)</td></tr>
+			<tr><td class="first-colum">Tanggal Putusan</td><td><?php echo $banding_detil[0]['putusan_pn'];?></td></tr>
+			<tr><td class="first-colum">Status Putusan</td><td>#<?php echo $perkara_detil[0]['status_putusan_kode'];?>#</td></tr>
+			<tr><td class="first-colum">Majelis Hakim</td><td><?php echo $perkara_detil[0]['majelis_hakim_text'];?></td></tr>
+			<tr><td class="first-colum">Para Pihak</td><td><?php echo $perkara_detil[0]['para_pihak'];?></td></tr>
+</table>	
+
+<table class="table_form" style="font-size:14px;width:100%;" border="0">
+		<colgroup><col width="250">
+		<col>
+		</colgroup><tbody>
+			<tr>
+				<td style="background-color:#8dc79e;padding:5px;color:white" colspan="2"><strong>Data Permohonan Banding (SIPP)</strong></td>
+			</tr>
+
+			<tr><td class="first-colum">Tanggal Permohonan Banding</td><td><?php echo $banding_detil[0]['permohonan_banding'];?></td></tr>
+			<tr><td class="first-colum">Pihak Pemohon Banding</td><td><?php echo $banding_detil[0]['pemohon_banding'];?></td></tr>
+	</table>		
+
+<table class="table_form" style="font-size:14px;width:100%;" border="0">
+		<colgroup><col width="250">
+		<col width="25%">
+		<col width="200">
+		<col>
+		<col>
+		</colgroup><tbody>
+			<tr>
+			<td style="background-color:#8dc79e;padding:5px;;color:white" colspan="5"><strong>E-Doc Bundle A</strong></td>
+			</tr>
+			<?php
+			$lengkap = true;
+			foreach ($ref_jenis_edoc_a as $row):
+			if ($row['file_edoc'] == '' && $row['is_required'] == 1)
+				$lengkap = false;
+			
+			?>
+			<tr>
+			<td class="first-colum form-group <?php echo ( $row['file_edoc'] == '' ? "bg-warning text-white":"bg-success text-white" );?>"> <?php echo $row['full_jenis_edoc']; ?></td>
+			<td class="status"><?php echo ($row['org_name'] <> '' ? "<a class='preview-edoc' href=\"javascript:popup_edoc('".$row['file_edoc']."')\">".$row['org_name']."</a>":""); ?></td>
+			<input type="hidden" name="id_edoc" value="<?php echo $row['id_edoc'];?>">
+			<?php 
+			if ($row['file_edoc'] <> ''):
+			?>
+			<td>			
+			<select class="form-control" name="select_validasi">
+			<option> -- Pilih Validasi --</option>
+			<option value="1"> Valid </option>
+			<option value="0"> Tidak Valid </option>
+			</select>
+			</td>
+			<td><input type="text" class="catatan_validasi form-control" name="catatan_validasi"></td>
+			<td><a class="btn btn-validasi btn-success" href="javascript:;">Simpan</a></td>
+			<?php 
+			else :
+			echo "<td colspan='3'>-- FILE TIDAK ADA --</td>";
+			endif; ?>
+			</tr>
+			<?php
+			endforeach;
+		//	exit;
+			?>
+			
+</table>
+
+<table class="table_form" style="font-size:14px;width:100%;" border="0">
+		<colgroup><col width="250">
+		<col width="25%">
+		<col width="200">
+		<col>
+		<col>
+		</colgroup><tbody>
+			<tr>
+			<input type="hidden" name="perkara_id" value="<?php echo $perkara_id;?>">
+			<td style="background-color:#8dc79e;padding:5px;;color:white" colspan="5"><strong>E-Doc Bundle B</strong></td>
+			</tr>
+			<tr><td colspan="3"><strong>Anda dapat mengupload file secara bertahap, misal hari ini Surat Pengantar dan besok e-doc sisanya. Selama belum dikirim, file edoc masih dapat diubah/diupload ulang</strong></td></tr>
+			<?php
+			$lengkap = true;
+			foreach ($ref_jenis_edoc_b as $row):
+			if ($row['file_edoc'] == '' && $row['is_required'] == 1)
+				$lengkap = false;
+			
+			?>
+			<tr>
+			<td class="first-colum form-group <?php echo ( $row['file_edoc'] == '' ? "bg-warning text-white":"bg-success text-white" );?>"> <?php echo $row['full_jenis_edoc']; ?></td>
+			<td class="status"><?php echo ($row['org_name'] <> '' ? "<a class='preview-edoc' href=\"javascript:popup_edoc('".$row['file_edoc']."')\">".$row['org_name']."</a>":""); ?></td>
+			<input type="hidden" name="id_edoc" value="<?php echo $row['id_edoc'];?>">
+			<?php 
+			if ($row['file_edoc'] <> ''):
+			?>
+			<td>			
+			<select class="form-control" name="select_validasi">
+			<option> -- Pilih Validasi --</option>
+			<option value="1"> Valid </option>
+			<option value="0"> Tidak Valid </option>
+			</select>
+			</td>
+			<td><input type="text" class="catatan_validasi form-control" name="catatan_validasi"></td>
+			<td><a class="btn btn-validasi btn-success" href="javascript:;">Simpan</a></td>
+			<?php 
+			else :
+			echo "<td colspan='3'>-- FILE TIDAK ADA --</td>";
+			endif; ?>
+			</tr>
+			<?php
+			endforeach;
+		//	exit;
+			?>
+			
+</table>
+
+</form>
+<hr>
+<div class="panel ">
+Jika Sudah Yakin dengan Validasi, silahkan KUNCI <br />
+<a class="btn btn-success noprint" href="javascript:kunci()">E-Doc telah Valid dan Kunci</a>
+<a class="btn btn-danger noprint" href="javascript:kunci()">Kembalikan Karena Belum Valid</a>
+
+</div>
+
+	
+	
+	

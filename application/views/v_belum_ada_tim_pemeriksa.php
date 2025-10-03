@@ -1,0 +1,55 @@
+<div class="clearfix">
+<div class="row">
+  <div class="col-lg-12">
+
+  </div>
+</div>
+
+<?php echo $this->session->flashdata("info");?>
+
+<table class="table table-hover dataTable stripe">
+	<thead>
+		<tr>
+			<th width="2%">Nomor</th>
+			<th>Nomor Perkara</th>			
+			<th width="10%">Tanggal Permohonan Banding</th>
+			<th width="">Pemohon Banding</th>
+			<th width="10%">Status Banding</th>
+			<th width="10%">Aksi</th>
+		</tr>
+	</thead>
+
+	<tbody>
+		<?php
+        $no = 0;
+		if (empty($data_mon)) {
+			echo "<tr><td colspan='5'  style='text-align: center; font-weight: bold'>--Data tidak ditemukan--</td></tr>";
+		} else {
+			foreach ($data_mon as $b) {
+			$no++;
+			$perkara_id_enc = str_replace('/','__',$this->encryption->encrypt($b['perkara_id']));
+         
+			?>
+		<tr>
+			<td><?php echo $no;?></td>
+			<td>
+			<?php echo $b['nomor_perkara_pa'];
+				if ( $b['blm_validasi'] > 0 ) {
+					echo "<span class='badge badge-danger'>".$b['blm_validasi']." Edoc Menunggu Validasi</span>";
+				}
+			?></td>
+			<td><?php echo $b['permohonan_banding'];?></td>
+            <td><?php echo $b['pemohon_banding'];?></td>
+			<td><?php echo $b['status_perkara_banding'];?></td>
+			<td><a class="btn btn-success noprint" href="<?php echo base_url('edoc/validasi/'.$b['idpn'].'/'.$perkara_id_enc);?>">lihat</a> </td>
+		</tr>
+		<?php
+			}
+		}
+		?>
+	</tbody>
+	
+</table>
+
+
+</div>

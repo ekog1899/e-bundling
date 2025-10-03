@@ -1,0 +1,106 @@
+<?php
+defined('BASEPATH') OR exit('No direct script access allowed');
+
+class Login extends CI_Controller {
+
+    public function __construct()
+    {
+        parent::__construct();
+        //load library form validasi
+        $this->load->library('form_validation');
+        //load model admin
+        $this->load->model('m_login','admin');
+    }
+
+	public function index()
+	{
+
+	
+			if (!preg_match('/(smartphone)/i',$_SERVER['SERVER_NAME'])){
+				die('<h1>Silahkan kunjungi <a href="http://smartphone.pa-kisaran.go.id">http://smartphone.pa-kisaran.go.id</a></h1>');
+			}
+			
+			#print_r($this->session->userdata()); exit;
+            $browser = $_SERVER['HTTP_USER_AGENT'];
+            #echo $browser;
+            if (!preg_match('/(chrome)/i',$browser))
+            {
+                die('Silahkan gunakan Browser Chrome');
+            }
+            if($this->admin->logged_id())
+			{
+				//jika memang session sudah terdaftar, maka redirect ke halaman dahsboard
+				redirect("dashboard");
+
+			}else{
+
+				//jika session belum terdaftar
+
+				//set form validation
+	            $this->form_validation->set_rules('username', 'Username', 'required');
+	            $this->form_validation->set_rules('password', 'Password', 'required');
+
+	            //set message form validation
+	            $this->form_validation->set_message('required', '<div class="alert alert-danger" style="margin-top: 3px">
+	                <div class="header"><b><i class="fa fa-exclamation-circle"></i> {field}</b> harus diisi</div></div>');
+
+	            //cek validasi
+
+                if ($this->form_validation->run() == TRUE) {
+
+				//get data dari FORM
+	            $username = $this->input->post("username", TRUE);
+	            $password = MD5($this->input->post('password', TRUE));
+                //checking data via model
+	            $checking = $this->admin->check_login('intra.t_user', array('username' => $username), array('password' => $password));
+
+	            //jika ditemukan, maka create session
+	            if ($checking != FALSE) {
+	                foreach ($checking as $apps) {
+						$session_data = array(
+	                        'user_id'   => $apps->id,
+							'user_photo_src'   => ( $apps->photo_src == '' ) ? 'default_photo.png': $apps->photo_src ,
+	                        'user_username' => $apps->username,
+	                        'user_nama' => $apps->nama,
+                            'user_ta' => $this->input->post("ta"),
+                            'user_level' => $apps->level,
+	                        'user_jabatan_id' => $apps->kode_jabatan
+	                    );
+	                    //set session userdata
+	                    $this->session->set_userdata($session_data);
+                       # echo "here";exit;
+						if ( $apps->kode_jabatan != 52 )
+						{
+							redirect('dashboard/');
+						}
+						else{
+							redirect('config/users');
+						}			
+
+	                }
+	            }else{
+
+	            	$this->session->set_flashdata('k','<div class="alert alert-danger" style="margin-top: 3px">
+	                	<div class="header"><b><i class="fa fa-exclamation-circle"></i> ERROR</b> username atau password salah!</div></div>');
+                    $data="";
+	            	$this->load->view('login', $data);
+	            }
+
+	        }else{
+
+	            $this->load->view('login');
+	        }
+
+		}
+
+	}
+
+    public function logout(){
+        $this->session->unset_userdata('user_id');
+        $this->session->unset_userdata('user_name');
+        $this->session->unset_userdata('user_pass');
+        $this->session->unset_userdata('user_nama');
+        $this->session->sess_destroy();
+        redirect('login');
+    }
+}

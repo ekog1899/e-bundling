@@ -1,0 +1,89 @@
+<form>
+<?php// print_r($banding_detil[0]); ?>
+
+<?php // print_r($ref_jenis_edoc_a); ?>
+<table class="table_form" style="font-size:14px;width:100%;" border="0">
+		<colgroup><col width="250">
+		<col>
+		</colgroup><tbody>
+			<tr>
+				<td style="background-color:#8dc79e;padding:5px;color:white" colspan="2"><strong>Data Perkara Tingkat Pertama (SIPP)</strong></td>
+			</tr>
+			<tr><td class="first-colum">Nomor Perkara</td><td><?php echo $perkara_detil[0]['nomor_perkara'];?> (<?php echo $perkara_detil[0]['jenis_perkara_text'];?>)</td></tr>
+			<tr><td class="first-colum">Tanggal Putusan</td><td><?php echo $banding_detil[0]['putusan_pn'];?></td></tr>
+			<tr><td class="first-colum">Status Putusan</td><td>#<?php echo $perkara_detil[0]['status_putusan_kode'];?>#</td></tr>
+			<tr><td class="first-colum">Majelis Hakim</td><td><?php echo $perkara_detil[0]['majelis_hakim_text'];?></td></tr>
+			<tr><td class="first-colum">Para Pihak</td><td><?php echo $perkara_detil[0]['para_pihak'];?></td></tr>
+</table>	
+
+<table class="table_form" style="font-size:14px;width:100%;" border="0">
+		<colgroup><col width="250">
+		<col>
+		</colgroup><tbody>
+			<tr>
+				<td style="background-color:#8dc79e;padding:5px;color:white" colspan="2"><strong>Data Permohonan Banding (SIPP)</strong></td>
+			</tr>
+
+			<tr><td class="first-colum">Tanggal Permohonan Banding</td><td><?php echo $banding_detil[0]['permohonan_banding'];?></td></tr>
+			<tr><td class="first-colum">Pihak Pemohon Banding</td><td><?php echo $banding_detil[0]['pemohon_banding'];?></td></tr>
+	</table>		
+
+<table class="table_form" style="font-size:14px;width:100%;" border="0">
+		<colgroup><col width="250">
+		<col width="25%">
+		<col>
+		</colgroup><tbody>
+			<tr>
+			<td style="background-color:#8dc79e;padding:5px;;color:white" colspan="3"><strong>E-Doc Bundle A</strong></td>
+			</tr>
+			<tr><td colspan="3"><strong>Anda dapat mengupload file secara bertahap, misal hari ini Surat Pengantar dan besok e-doc sisanya. Selama belum dikirim, file edoc masih dapat diubah/diupload ulang</strong></td></tr>
+			<?php
+			$lengkap = true;
+			foreach ($ref_jenis_edoc_a as $row):
+			if ($row['file_edoc'] == '' && $row['is_required'] == 1)
+				$lengkap = false;
+			echo '<tr><td class="first-colum form-group '.( $row['file_edoc'] == '' ? "bg-warning text-white":"bg-success text-white" ).'">'.$row['full_jenis_edoc'].'</td><td><input type="file" class="file_edoc" id="surat_pengantar" name="'.$row['jenis_edoc'].'"></td><td class="status">'.($row['org_name'] <> '' ? "<a class='preview-edoc' href=\"javascript:popup_edoc('".$row['file_edoc']."')\">".$row['org_name']."</a> telah diupload":"").'</td></tr>';
+			
+			endforeach;
+			exit;
+			?>
+			
+</table>
+
+<table class="table_form" style="font-size:14px;width:100%;" border="0">
+		<colgroup><col width="250">
+		<col width="25%">
+		<col>
+		</colgroup><tbody>
+			<tr>
+			<input type="hidden" name="perkara_id" value="<?php echo $perkara_id;?>">
+			<td style="background-color:#8dc79e;padding:5px;;color:white" colspan="3"><strong>E-Doc Bundle B</strong></td>
+			</tr>
+			<tr><td colspan="3"><strong>Anda dapat mengupload file secara bertahap, misal hari ini Surat Pengantar dan besok e-doc sisanya. Selama belum dikirim, file edoc masih dapat diubah/diupload ulang</strong></td></tr>
+			<?php
+			$lengkap = true;
+			foreach ($ref_jenis_edoc_b as $row):
+			if ($row['file_edoc'] == '' && $row['is_required'] == 1)
+				$lengkap = false;
+			echo '<tr><td class="first-colum form-group '.( $row['file_edoc'] == '' ? "bg-warning text-white":"bg-success text-white" ).'">'.$row['full_jenis_edoc'].'</td><td><input type="file" class="file_edoc" id="surat_pengantar" name="'.$row['jenis_edoc'].'"></td><td class="status">'.($row['org_name'] <> '' ? "<a class='preview-edoc' href=\"javascript:popup_edoc('".$row['file_edoc']."')\">".$row['org_name']."</a> telah diupload":"").'</td></tr>';
+			
+			endforeach;
+			?>
+			
+</table>
+
+</form>
+<hr>
+<div class="panel ">
+Jika e-doc telah lengkap silahkan lakukan Pengiriman. Setelah dikirim maka e-doc tidak akan bisa diubah lagi<br />
+<?php if ($lengkap == true ):
+echo '<a class="btn btn-success noprint" href="javascript:kunci()">Kunci dan Kirim e-Doc ke PTA</a>';
+else :
+echo '<span class="btn btn-warning noprint" href="javascript:kunci()">Maaf Belum Bisa dikunci Karena ada edoc yang belum lengkap</span>';
+endif;
+?>
+</div>
+
+	
+	
+	
