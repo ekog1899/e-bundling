@@ -42,7 +42,7 @@
 			<!-- <tr><td class="first-colum">Tanggal Putusan Kasasi</td><td  colspan=2><?php echo $kasasi_detil[0]['putusan_banding'];?></td></tr> -->
 			<tr><td class="first-colum">Status Kasasi</td><td  colspan=2><?php echo $kasasi_detil[0]['status_kasasi_text'];?></td></tr>
 			<tr><td class="first-colum">Upload Putusan Kasasi</td><td colspan=2>
-				<input type="text" name="perkara_id" value="<?php echo $kasasi_detil[0]['perkara_id'] ?>">
+				<input type="hidden" name="perkara_id" value="<?php echo $kasasi_detil[0]['perkara_id'] ?>">
 				<input type="hidden" name="idpn" value="<?php echo $this->session->userdata('idpn'); ?>">
 				<input type="hidden" name="jenis_edoc" value="kasasi">
 				<input type="file" class="file_edoc" name="file_doc" id="fileInput" required>
