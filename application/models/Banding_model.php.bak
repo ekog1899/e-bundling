@@ -1,0 +1,131 @@
+<?php
+class Banding_model extends CI_Model {
+
+	function init(){
+		$this->db_pa = $this->session->userdata('satkersing');
+		$this->db_pa = "sipp"; // xampp mode
+		$this->db_edoc = "dev_dakung_banding";
+	}
+	
+	function switch_db($satkersing){
+		$this->db_pa = $satkersing;
+		// force on localhost
+		if ( ENVIRONMENT == 'development' ){
+			$this->db_pa = "sipp";
+		}
+		
+	}
+
+	function fetch_ref_edoc($perkara_id,$satkersing,$bundle){
+		$sql = "SELECT a.*,b.file_edoc,org_name,b.id id_edoc,catatan_pta,val_edoc,waktu_validasi FROM ref_jenis_edoc a LEFT OUTER JOIN (
+			SELECT * FROM dok_perkara_banding 
+			WHERE perkara_id='$perkara_id'
+			AND satkersing='$satkersing' 
+			) b
+			ON(a.jenis_edoc=b.jenis_edoc)
+			where bundel='$bundle'
+			order by id asc";
+		#echo $sql;	
+return $this->db->query($sql)->result_array();
+	}
+    
+
+	// dashboard PA
+	function belum_kirim(){
+		$sql = "SELECT *
+				FROM $this->db_pa.v_perkara_banding
+				where status_banding_text='Permohonan Banding'
+				and YEAR(permohonan_banding)=YEAR(NOW())";
+		$q = $this->db->query($sql);
+		return $q->result_array();	
+	}
+
+	// dash PTA
+	function belum_berjalan(){
+		$sql = "SELECT a.*,b.blm_validasi
+		FROM sipp_perkara_banding a LEFT JOIN
+		(
+		SELECT satkersing,perkara_id,COUNT(1) blm_validasi FROM dok_perkara_banding
+		WHERE val_edoc IS NULL
+		AND file_edoc IS NOT NULL
+		GROUP BY satkersing,perkara_id
+		) b 
+		ON (a.`perkara_id`=b.perkara_id AND a.satkersing=b.satkersing)
+		WHERE nomor_perkara_banding IS NULL OR nomor_perkara_banding = ''
+		ORDER BY blm_validasi DESC
+		";
+		$q = $this->db->query($sql);
+		return $q->result_array();	
+	}
+	
+	
+	
+	function banding_detil($perkara_id){
+		$sql = "SELECT *
+				FROM $this->db_pa.v_perkara_banding
+				where perkara_id='$perkara_id'";
+		$q = $this->db->query($sql);
+		return $q->result_array();	
+	}
+	
+	function perkara_detil($perkara_id){
+		$sql = "SELECT *
+				FROM $this->db_pa.v_perkara
+				where perkara_id='$perkara_id'";
+		$q = $this->db->query($sql);
+		return $q->result_array();	
+	}
+	
+	function insert_edoc($data){
+		
+		// cek dulu udah ada data keterangan?
+		$this->db->where('satkersing', $data['satkersing']);
+		$this->db->where('perkara_id', $data['perkara_id']);
+		$this->db->where('jenis_edoc', $data['jenis_edoc']);
+		$this->db->select('file_edoc');
+		$old_file = $this->db->get('dok_perkara_banding')->row();
+		if ( count($old_file) > 0 )
+			if ( @file_exists('./uploads/edoc/'.$old_file->file_edoc))
+			{
+				unlink('./uploads/edoc/'.$old_file->file_edoc);
+			}	
+		$this->db->where('satkersing', $data['satkersing']);
+		$this->db->where('perkara_id', $data['perkara_id']);
+		$this->db->where('jenis_edoc', $data['jenis_edoc']);
+		$this->db->delete('dok_perkara_banding');
+		
+		if ( $data['file_size'] > 0 ) {
+			$this->db->insert('dok_perkara_banding',$data);
+		}	
+		
+	}
+	
+	function validasi_edoc($data){
+		
+		if ( $data['id'] != '') {
+			#print_r($data);
+			$this->db->where('id', $data['id']);
+			$this->db->update('dok_perkara_banding',$data);
+		}
+		else{
+			// klo edoc belum ada, insert
+			$this->db->insert('dok_perkara_banding',$data);
+		#	echo $this->db->last_query();
+		}	
+		return true;
+	
+		
+	}
+
+	function save_text_info($data){
+		// 
+		$this->db->where('perkara_id', $data['perkara_id']);
+		$this->db->where('satkersing', $data['satkersing']);
+		$this->db->where('jenis_edoc', $data['jenis_edoc']);
+		$this->db->delete('dok_perkara_banding');
+		$this->db->insert('dok_perkara_banding',$data);
+		return true;
+	}
+	
+}
+?>

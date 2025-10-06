@@ -15,6 +15,8 @@
 			<th width="10%">Tanggal Permohonan Banding</th>
 			<th width="">Pemohon Banding</th>
 			<th width="10%">Status Banding</th>
+			<th width="10%">Jenis Perkara</th>
+
 			<th width="10%">Aksi</th>
 		</tr>
 	</thead>
@@ -41,6 +43,7 @@
 			<td><?php echo $b['permohonan_banding'];?></td>
             <td><?php echo $b['pemohon_banding'];?></td>
 			<td><?php echo $b['status_perkara_banding'];?></td>
+<td><?php echo $b['jenis_perkara_text'];?></td>
 			<td><a class="btn btn-success noprint" href="<?php echo base_url('edoc/validasi/'.$b['idpn'].'/'.$perkara_id_enc);?>">lihat</a> </td>
 		</tr>
 		<?php

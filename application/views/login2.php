@@ -25,6 +25,7 @@
 					<div class="text_logo" style='color:#003333;'>
 						<h4>e-BUNDLING</h4>
 					</div>
+					<span class="text-center"> PENGADILAN TINGGI AGAMA SEMARANG</span>
 					<span class="text-center"> DITJEN BADILAG</span>
 					<span class="text-center">MAHKAMAH AGUNG RI</span>
 					<span class="text-center"> &copy; <?=date('Y');?></span>

@@ -21,7 +21,7 @@ $url = isset($_SERVER['HTTP_REFERER']) ? htmlspecialchars($_SERVER['HTTP_REFERER
 			</tr>
 			<tr>
 				<td class="first-colum">Nomor Perkara</td>
-				<td><?php echo $banding_detil[0]['nomor_perkara_pa']; ?> (<?php echo $banding_detil[0]['jenis_perkara_text']; ?>)</td>
+				<td><?php echo $banding_detil[0]['nomor_perkara_pa']; ?> </td>
 			</tr>
 			<tr>
 				<td class="first-colum">Tanggal Putusan</td>
@@ -35,6 +35,11 @@ $url = isset($_SERVER['HTTP_REFERER']) ? htmlspecialchars($_SERVER['HTTP_REFERER
 				<td class="first-colum">Para Pihak</td>
 				<td><?php echo $banding_detil[0]['para_pihak']; ?></td>
 			</tr>
+			<tr>
+				<td class="first-colum">Jenis Perkara</td>
+				<td><?php echo $banding_detil[0]['jenis_perkara_text']; ?></td>
+			</tr>
+
 	</table>
 
 	<table class="table_form" style="font-size:14px;width:100%;" border="0">

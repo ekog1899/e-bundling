@@ -23,7 +23,7 @@
 			<th width="10%">Status Banding</th>
 			<th width="10%">Nomor Kasasi</th>
 			<th width="10%">Status Kasasi</th>
-			<th width="10%">Aksi</th>
+			<th width="13%">Aksi</th>
 		</tr>
 	</thead>
 
@@ -45,11 +45,17 @@
 			<td><?php echo $b['status_perkara_banding'];?></td>
             <td><?php echo $b['nomor_perkara_kasasi'];?></td>
 			<td><?php echo $b['status_kasasi_text'];?></td>
-			<td><a class="btn btn-success noprint" href="<?php echo base_url('edoc/validasi/'.$b['idpn'].'/'.$perkara_id_enc);?>">edoc</a> </td>
+			<td><a class="btn btn-success noprint" href="<?php echo base_url('edoc/validasi/'.$b['idpn'].'/'.$perkara_id_enc);?>">edoc</a>
+			<?php if (!empty($b['file_doc'])) { 
+					echo '<a class="btn btn-danger preview-edoc" href="javascript:popup_edoc(\'' . $b['file_doc'] . '\')"><i class="fas fa-fw fa-file-pdf fa-lg"></i></a>';
+				}
+			?>
+
+				<!-- <a class="btn btn-danger preview-edoc" href="javascript:popup_edoc('<?php echo $b['file_doc'];?>')"><i class="fas fa-fw fa-file-pdf fa-lg"></i></a> -->
+			
+			</td>
+			
 		<tr>
-			
-			
-			
 		</tr>
 		<?php
 			}

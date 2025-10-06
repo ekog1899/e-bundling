@@ -6,7 +6,9 @@
 			<th width="100">Nomor Perkara</th>			
 			<th width="15%">Tanggal Putusan</th>
 			<th width="100%">Pemohon Banding</th>
+			<th width="100%">Tanggal Permohonan Banding</th>
 			<th width="20%">Status Perkara Banding</th>
+			<th width="20%">Jenis Perkara</th>
 			<th width="50">Aksi</th>
 		</tr>
 	</thead>
@@ -30,8 +32,12 @@
 				}
 			?></td>
 			<td><?php echo $b['tgl_putusan_pa'];?></td>
-            <td><?php echo $b['pemohon_banding'];?></td>
+            		<td><?php echo $b['pemohon_banding'];?></td>
+
+			<td><?php echo $b['permohonan_banding'];?></td>
+
 			<td><?php echo $b['status_perkara_banding'];?></td>
+			<td><?php echo $b['jenis_perkara_text'];?></td>
 			<td><a class="btn btn-success noprint" href="<?php echo base_url('edoc/validasi/'.$b['idpn'].'/'.$perkara_id_enc);?>">lihat</a> </td>
 		</tr>
 		<?php

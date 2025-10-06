@@ -145,7 +145,8 @@ class Monitoring_model extends CI_Model {
 
     function list_kasasi_skrg($satker,$tahun){
         $sql = "SELECT * FROM sipp_perkara_kasasi a RIGHT OUTER JOIN sipp_perkara_banding b  ON (a.idpn=b.idpn AND a.nomor_perkara_pn=b.`nomor_perkara_pa`) 
-         WHERE a.idpn='$satker' 
+        LEFT OUTER JOIN dok_perkara_kasasi c ON (a.idpn = c.idpn AND a.perkara_id = c.perkara_id)
+        WHERE a.idpn='$satker' 
         AND YEAR(tanggal_pendaftaran_banding)=$tahun 
         AND YEAR(permohonan_kasasi)=$tahun 
         and status_kasasi_text is not null";

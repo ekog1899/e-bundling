@@ -81,7 +81,9 @@
 				if ( $row['jenis_edoc'] == 'bas')
 				{ 
 					$nama_field = $row['jenis_edoc'];
-					$ref_lock = $row['ref_column_lock'];					
+					$ref_lock = $row['ref_column_lock'];
+				
+					
 
 					echo '<tr>
 					<td class= "bg-gradien-blue" style="padding:5px;;color:white" colspan="3"><strong>PERSIDANGAN </strong></td>

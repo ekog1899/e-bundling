@@ -20,7 +20,6 @@
 	-->
 	
 	
-	<!-- <table class="table table-bordered table-hover"> -->
 	<table class="table table-hover dataTable stripe">
 		<thead>
 			<tr>

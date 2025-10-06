@@ -113,5 +113,4 @@ class Monitoring extends CI_Controller {
         $data['content'] = $this->load->view("v_perkara_banding_putus",$data_content,true); 
         $this->load->view("template",$data);
     }
-
 }
