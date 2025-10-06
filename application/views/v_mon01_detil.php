@@ -49,10 +49,7 @@
 			<?php if (!empty($b['file_doc'])) { 
 					echo "<a class='btn btn-danger preview-edoc' href='javascript:popup_edoc(".$b['file_doc'].")'><i class='fas fa-fw fa-file-pdf fa-lg'></i></a>"; 
 				}
-			?>
-
-				<a class="btn btn-danger preview-edoc" href="javascript:popup_edoc('<?php echo $b['file_doc'];?>')"><i class="fas fa-fw fa-file-pdf fa-lg"></i></a>
-			
+			?>			
 			</td>
 			
 		<tr>
