@@ -47,11 +47,11 @@
 			<td><?php echo $b['status_kasasi_text'];?></td>
 			<td><a class="btn btn-success noprint" href="<?php echo base_url('edoc/validasi/'.$b['idpn'].'/'.$perkara_id_enc);?>">edoc</a>
 			<?php if (!empty($b['file_doc'])) { 
-					echo '<a class="btn btn-danger preview-edoc" href="javascript:popup_edoc(\'' . $b['file_doc'] . '\')"><i class="fas fa-fw fa-file-pdf fa-lg"></i></a>';
+					echo "<a class='btn btn-danger preview-edoc' href='javascript:popup_edoc(".$b['file_doc'].")'><i class='fas fa-fw fa-file-pdf fa-lg'></i></a>"; 
 				}
 			?>
 
-				<!-- <a class="btn btn-danger preview-edoc" href="javascript:popup_edoc('<?php echo $b['file_doc'];?>')"><i class="fas fa-fw fa-file-pdf fa-lg"></i></a> -->
+				<a class="btn btn-danger preview-edoc" href="javascript:popup_edoc('<?php echo $b['file_doc'];?>')"><i class="fas fa-fw fa-file-pdf fa-lg"></i></a>
 			
 			</td>
 			
