@@ -43,11 +43,11 @@
 			<tr><td class="first-colum">Status Kasasi</td><td  colspan=2><?php echo $kasasi_detil[0]['status_kasasi_text'];?></td></tr>
 			<tr><td class="first-colum">Upload Putusan Kasasi</td><td colspan=2>
 				
-				<?php if (!empty($kasasi_detil[0]['file_doc'])) {?>
-					<a class="btn btn-success btn-sm" href="javascript:popup_edoc('<?= $kasasi_detil[0]['file_doc']?>')"><i class="fas fa-fw fa-file-pdf fa-lg"></i>Preview File</a>
-				<?php } ?>
+						<?php if (!empty($kasasi_doc[0]['file_doc'])) {?>
+							<a class="btn btn-success btn-sm" href="javascript:popup_edoc('<?= $kasasi_doc[0]['file_doc']?>')"><i class="fas fa-fw fa-file-pdf fa-lg"></i>Preview File</a>
+						<?php } ?>
 
-				<input type="hidden" name="perkara_id" value="<?php echo $kasasi_detil[0]['perkara_id'] ?>">
+				<input type="hidden" name="perkara_id" value="<?= $kasasi_detil[0]['perkara_id']; ?>">
 				<input type="hidden" name="idpn" value="<?php echo $this->session->userdata('idpn'); ?>">
 				<input type="hidden" name="jenis_edoc" value="kasasi">
 				<input type="file" class="file_edoc" name="file_doc" id="fileInput" required>

@@ -550,7 +550,14 @@ class Banding_model extends CI_Model
 
 	function kasasi_detil($perkara_id){
 		$sql = "SELECT * FROM sipp_perkara_kasasi a RIGHT OUTER JOIN sipp_perkara_banding b  
-		ON (a.idpn=b.idpn AND a.nomor_perkara_pn=b.`nomor_perkara_pa`) LEFT OUTER JOIN dok_perkara_kasasi c
+		ON (a.idpn=b.idpn AND a.nomor_perkara_pn=b.`nomor_perkara_pa`)
+		WHERE a.perkara_id = ".$perkara_id." and a.idpn='$this->idpn'";
+		$q = $this->db->query($sql);
+		return $q->result_array();
+	}
+
+	function kasasi_dok($perkara_id){
+		$sql = "SELECT * FROM sipp_perkara_kasasi a RIGHT OUTER JOIN dok_perkara_kasasi c
 		ON (a.idpn=c.idpn AND a.perkara_id=c.perkara_id) 
 		WHERE a.perkara_id = ".$perkara_id." and a.idpn='$this->idpn'";
 		$q = $this->db->query($sql);

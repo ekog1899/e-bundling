@@ -74,6 +74,7 @@ class Edoc extends CI_Controller
 		// $data_content['ref_jenis_edoc_t'] = $this->banding->fetch_ref_edoc($perkara_id, $this->session->userdata('idpn'), 't');
 		// // $data_content['ref_jenis_edoc_d'] = $this->banding->fetch_ref_edoc($perkara_id, $this->session->userdata('idpn'), 'd');
 		$data_content['kasasi_detil'] = $this->banding->kasasi_detil($perkara_id);
+		$data_content['kasasi_doc'] = $this->banding->kasasi_dok($perkara_id);
 
 		$data['content'] = $this->load->view("f_edoc_kasasi", $data_content, true);
 		$this->load->view("template", $data);
